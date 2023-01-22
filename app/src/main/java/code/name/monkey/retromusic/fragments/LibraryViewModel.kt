@@ -324,7 +324,17 @@ class LibraryViewModel(
     fun clearSearchResult() {
         searchResults.value = emptyList()
     }
-
+    fun linkWithFolder(context: Context, pl: PlaylistEntity, folder : File?) {
+        viewModelScope.launch(IO) {
+            repository.renameRoomPlaylist(pl.playListId, folder.toString())
+            withContext(Main) {
+                context.showToast(
+                    //R.string.linked_with_folder_successfully
+                    context.getString(R.string.linked_folder_sucessfully)
+                )
+            }
+        }
+    }
     fun addToPlaylist(context: Context, playlistName: String, songs: List<Song>) {
         viewModelScope.launch(IO) {
             val playlists = checkPlaylistExists(playlistName)

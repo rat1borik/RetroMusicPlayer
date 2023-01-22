@@ -30,6 +30,8 @@
         app:showAsAction="never" />
     <item
         android:id="@+id/action_save_playlist"
-        android:title="@string/save_playlist_title"
-        app:showAsAction="never" />
+        android:title="@string/save_playlist_title" />
+    <item
+        android:id="@+id/action_link_with_folder"
+        android:title="@string/action_link_with_folder" />
 </menu>
