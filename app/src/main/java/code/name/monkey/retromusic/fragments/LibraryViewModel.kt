@@ -326,7 +326,7 @@ class LibraryViewModel(
     }
     fun linkWithFolder(context: Context, pl: PlaylistEntity, folder : File?) {
         viewModelScope.launch(IO) {
-            repository.renameRoomPlaylist(pl.playListId, folder.toString())
+            repository.setLinkedFolder(pl.playListId, folder.toString())
             withContext(Main) {
                 context.showToast(
                     //R.string.linked_with_folder_successfully
@@ -335,6 +335,19 @@ class LibraryViewModel(
             }
         }
     }
+
+    fun unlinkFolder(context: Context, pl: PlaylistEntity) {
+        viewModelScope.launch(IO) {
+            repository.setLinkedFolder(pl.playListId, null)
+            withContext(Main) {
+                context.showToast(
+                    //R.string.linked_with_folder_successfully
+                    context.getString(R.string.linked_folder_sucessfully)
+                )
+            }
+        }
+    }
+
     fun addToPlaylist(context: Context, playlistName: String, songs: List<Song>) {
         viewModelScope.launch(IO) {
             val playlists = checkPlaylistExists(playlistName)

@@ -29,5 +29,5 @@ class PlaylistEntity(
     @ColumnInfo(name = "playlist_name")
     val playlistName: String,
     @ColumnInfo(name = "playlist_linked_folder")
-    val playlistLinkedFolder: String = ""
+    val playlistLinkedFolder: String? = null
 ) : Parcelable

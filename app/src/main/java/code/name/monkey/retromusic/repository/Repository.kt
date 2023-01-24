@@ -73,6 +73,7 @@ interface Repository {
     suspend fun fetchPlaylists(): List<PlaylistEntity>
     suspend fun deleteRoomPlaylist(playlists: List<PlaylistEntity>)
     suspend fun renameRoomPlaylist(playlistId: Long, name: String)
+    suspend fun setLinkedFolder(playlistId: Long, folder: String?)
     suspend fun deleteSongsInPlaylist(songs: List<SongEntity>)
     suspend fun removeSongFromPlaylist(songEntity: SongEntity)
     suspend fun deletePlaylistSongs(playlists: List<PlaylistEntity>)
@@ -250,6 +251,8 @@ class RealRepository(
 
     override suspend fun renameRoomPlaylist(playlistId: Long, name: String) =
         roomRepository.renamePlaylistEntity(playlistId, name)
+    override suspend fun setLinkedFolder(playlistId: Long, folder: String?) =
+        roomRepository.setLinkedFolder(playlistId, folder)
 
     override suspend fun deleteSongsInPlaylist(songs: List<SongEntity>) =
         roomRepository.deleteSongsInPlaylist(songs)

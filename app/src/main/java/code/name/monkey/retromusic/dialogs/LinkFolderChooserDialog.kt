@@ -17,6 +17,7 @@ import code.name.monkey.retromusic.extensions.extraNotNull
 import code.name.monkey.retromusic.extensions.materialDialog
 import code.name.monkey.retromusic.extensions.showToast
 import code.name.monkey.retromusic.fragments.LibraryViewModel
+import code.name.monkey.retromusic.fragments.ReloadType
 import code.name.monkey.retromusic.util.getExternalStorageDirectory
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.list.listItems
@@ -33,7 +34,6 @@ class LinkFolderChooserDialog : DialogFragment() {
     private var parentFolder: File? = null
     private var parentContents: Array<File>? = null
     private var canGoUp = false
-    private var callback: FolderCallback? = null
     private val contentsArray: Array<String?>
         get() {
             if (parentContents == null) {
@@ -93,8 +93,9 @@ class LinkFolderChooserDialog : DialogFragment() {
                 onSelection(i)
             }
             .noAutoDismiss()
-            .positiveButton(res = R.string.add_action) {
+            .positiveButton(res = R.string.link_action) {
                 libraryViewModel.linkWithFolder(requireContext(), playlistEntity, parentFolder!!)
+                libraryViewModel.forceReload(ReloadType.Playlists)
 
                 dismiss()
             }
@@ -136,14 +137,6 @@ class LinkFolderChooserDialog : DialogFragment() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putString("current_path", parentFolder?.absolutePath)
-    }
-
-    fun setCallback(callback: FolderCallback?) {
-        this.callback = callback
-    }
-
-    interface FolderCallback {
-        fun onFolderSelection(context: Context, folder: File)
     }
 
     companion object {

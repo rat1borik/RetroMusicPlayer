@@ -25,6 +25,7 @@ interface RoomRepository {
     suspend fun insertSongs(songs: List<SongEntity>)
     suspend fun deletePlaylistEntities(playlistEntities: List<PlaylistEntity>)
     suspend fun renamePlaylistEntity(playlistId: Long, name: String)
+    suspend fun setLinkedFolder(playlistId: Long, folder: String?)
     suspend fun deleteSongsInPlaylist(songs: List<SongEntity>)
     suspend fun deletePlaylistSongs(playlists: List<PlaylistEntity>)
     suspend fun favoritePlaylist(favorite: String): PlaylistEntity
@@ -98,6 +99,9 @@ class RealRoomRepository(
 
     override suspend fun renamePlaylistEntity(playlistId: Long, name: String) =
         playlistDao.renamePlaylist(playlistId, name)
+
+    override suspend fun setLinkedFolder(playlistId: Long, folder: String?) =
+        playlistDao.setLinkedFolder(playlistId, folder)
 
     override suspend fun deleteSongsInPlaylist(songs: List<SongEntity>) {
         songs.forEach {

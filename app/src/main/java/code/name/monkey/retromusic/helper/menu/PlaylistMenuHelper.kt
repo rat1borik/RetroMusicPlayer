@@ -22,6 +22,7 @@ import code.name.monkey.retromusic.R
 import code.name.monkey.retromusic.db.PlaylistWithSongs
 import code.name.monkey.retromusic.db.toSongs
 import code.name.monkey.retromusic.dialogs.*
+import code.name.monkey.retromusic.fragments.LibraryViewModel
 import code.name.monkey.retromusic.helper.MusicPlayerRemote
 import code.name.monkey.retromusic.preferences.BlacklistPreferenceDialog
 import code.name.monkey.retromusic.providers.BlacklistStore
@@ -31,11 +32,11 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.get
 
 object PlaylistMenuHelper : KoinComponent {
-
     fun handleMenuClick(
         activity: FragmentActivity,
         playlistWithSongs: PlaylistWithSongs,
@@ -54,9 +55,12 @@ object PlaylistMenuHelper : KoinComponent {
             }
 
             R.id.action_link_with_folder -> {
-                Log.d("op","here")
-
                 LinkFolderChooserDialog.create(playlistWithSongs.playlistEntity).show(activity.supportFragmentManager, "CHOOSE_LINK_FOLDER")
+                return true
+            }
+
+            R.id.action_unlink -> {
+                UnlinkFolderDialog.create(playlistWithSongs.playlistEntity).show(activity.supportFragmentManager, "UNLINK_FOLDER")
                 return true
             }
 

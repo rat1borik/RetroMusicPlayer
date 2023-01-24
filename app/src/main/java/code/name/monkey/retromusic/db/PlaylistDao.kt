@@ -25,6 +25,9 @@ interface PlaylistDao {
     @Query("UPDATE PlaylistEntity SET playlist_name = :name WHERE playlist_id = :playlistId")
     suspend fun renamePlaylist(playlistId: Long, name: String)
 
+    @Query("UPDATE PlaylistEntity SET playlist_linked_folder = :folder WHERE playlist_id = :playlistId")
+    suspend fun setLinkedFolder(playlistId: Long, folder: String?)
+
     @Query("SELECT * FROM PlaylistEntity WHERE playlist_name = :name")
     fun playlist(name: String): List<PlaylistEntity>
 

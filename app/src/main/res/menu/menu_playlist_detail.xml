@@ -34,4 +34,7 @@
     <item
         android:id="@+id/action_link_with_folder"
         android:title="@string/action_link_with_folder" />
+    <item
+        android:id="@+id/action_unlink"
+        android:title="@string/action_unlink" />
 </menu>

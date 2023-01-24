@@ -64,8 +64,9 @@ class PlaylistDetailsFragment : AbsMainActivityFragment(R.layout.fragment_playli
         mainActivity.setSupportActionBar(binding.toolbar)
         binding.container.transitionName = "playlist"
         playlist = arguments.extraPlaylist
-        binding.toolbar.title = playlist.playlistEntity.playlistName
-        binding.toolbar.subtitle =
+        binding.toolbar.title = if(playlist.playlistEntity.playlistLinkedFolder!= null) getString(
+                    R.string.playlist_linked_status, playlist.playlistEntity.playlistName) else playlist.playlistEntity.playlistName
+                binding.toolbar.subtitle =
             MusicUtil.getPlaylistInfoString(requireContext(), playlist.songs.toSongs())
         setUpRecyclerView()
         viewModel.getSongs().observe(viewLifecycleOwner) {
